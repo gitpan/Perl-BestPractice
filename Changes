@@ -1,0 +1,7 @@
+Revision history for Perl extension Perl::BestPractice
+
+0.01  Tue Aug 16 2005
+	- Created the initial implementation
+	- Added do_while_loop
+	- Added list_transformation
+	- Added non_lexical_loop_iterator

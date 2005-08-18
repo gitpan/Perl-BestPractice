@@ -1,0 +1,18 @@
+name: Perl-BestPractice
+version: 0.01
+abstract: Perl Best Practices, the (unofficial) companiion module
+author: Adam Kennedyn <cpan@ali.as>
+license: perl
+distribution_type: module
+build_requires:
+  File::Spec: 0.80
+  Test::More: 0.47
+requires:
+  perl: 5.005
+  Carp: 0
+  Params::Util: 0
+  PPI: 1.003
+no_index:
+  directory:
+    - inc
+generated_by: Module::Install version 0.37

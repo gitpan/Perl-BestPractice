@@ -1,0 +1,185 @@
+NAME
+    Perl::BestPractice - Perl Best Practices, the (unofficial) companion
+    module
+
+SYNOPSIS
+      use PPI;
+      use Perl::BestPractice 'PBP';
+  
+      # Locate bad list transformations in a document
+      my $Document = PPI::Document->new( 'Module.pm' );
+      my $found = PBP->find('list_transformation')->in( $Document );
+  
+      # We're not having that sort of things around HERE!
+      if ( $found ) {
+            my $name = PBP->name('list_transformation');
+            die "Document failed Perl Best Practice '$name'\n";
+      }
+
+STATUS
+    At this time, "Perl::BestPractice" is considered entirely experimental.
+
+    Function, structure and APIs are subject to change.
+
+    If you wish to use this for an editor project or some other task, please
+    consider joining the parseperl-discuss@ mailing list from the PPI
+    SourceForge website.
+
+DESCRIPTION
+    "Perl::BestPractice" is the (for now unofficial) companion module to the
+    O'Reilly "Perl Best Practices" by Damian Conway.
+
+    Using various bits of PPI magic, it provides functionality to
+    automatically locate (and in some cases repair) issues raised by the
+    book.
+
+  Using Perl::BestPractice
+    You don't yet. There's some interesting tools coming for you to play
+    with in the next version.
+
+METHODS
+  name $identifier
+    The "name" static method takes a PBP identifier and returns the English
+    name of the practise as used in the PBP book as a string.
+
+  description $identifier
+    The "description" static method takes a PBP identifier and returns the
+    description of the practise as defined in the PBP book as a string.
+
+  wanted $identifier
+    The "wanted" static method takes a PBP identifier and returns a PPI
+    &wanted function for that practise.
+
+  find $identifier
+    The "find" method creates a PPI::Find object that can be used to search
+    for the practise in a PPI::Document and if needed iterate through the
+    found elements.
+
+    Returns a PPI::Find object, or return "undef" if the identifier does not
+    exist.
+
+BEST PRACTISES
+  subroutines_and_variables - "Code Layout: Subroutines and Variables"
+    "subroutines_and_variables" is the identifier for the practise in "Code
+    Layout: Subroutines and Variables", which is fully stated as the
+    following (with examples).
+
+      "Don't separate subroutine or variable names from the following
+       opening bracket"
+  
+      # Bad
+      get_candidates ($market);
+      $candidates [$i]
+          = $incumbent {$candidates [$i] {region}};
+  
+      # Good
+      get_candidates($market);
+      $candidates[$i]
+          = $incumbent{$candidates[$i]{region}};
+
+    Supported methods: name, description, wanted, find
+
+  empty_strings - "Values and Expressions: Empty Strings"
+    "empty_strings" is the identifier for the practise in "Values and
+    Expressions: Empty Strings", which is fully stated as the following
+    (with examples).
+
+      "Don't use "" or '' for an empty string"
+  
+      # Bad
+      $error_msg = '';
+  
+      # Good
+      $error_msg = q{}; # Empty string
+
+    Supported methods: name, description, wanted, find
+
+  leading_zero : "Values and Expressions: Leading Zeros"
+    "leading_zero" is the identifier for the practise "Values and
+    Expressions: Leading Zeros", which is fully stated as the following
+    (with examples).
+
+      "Don't pad decimal numbers with leading zeros"
+  
+      # Bad
+      0600
+  
+      # Good
+      oct(600)
+
+    Supported methods: name, description, wanted, find
+
+  non_lexical_loop_iterator : "Non-lexical Loop Iterators"
+    "non_lexical_loop_iterator" is the identifier for the practise
+    "Non-lexical Loop Iterators", which is fully stated as the following
+    (with examples).
+
+      "Don't use non-lexical loop iterators"
+  
+      # Bad
+      for     $foo ( ... ) { ... }
+      foreach $foo ( ... ) { ... }
+  
+      # Good
+      foreach my $foo ( ... ) { ... }
+
+    Supported methods: name, description, wanted, find
+
+  list_transformation : "List Transformations"
+    "list_transformation" is the identifier for the practise *"List
+    Transformations"*, which is fully stated as the following (with
+    examples).
+
+      "Use for instead of map when transforming a list in place"
+  
+      # Bad
+      @list = map { ... } @list;
+
+    Supported methods: name, description, wanted, find
+
+    The practises that have been implemented so far are described here, in
+    the rough order lists by both book name and identifier.
+
+    It's worth nothing that while the practise name is generally in plural
+    form, the identifier is normally in singular form.
+
+  do_while_loop : do-while Loops
+    "do_while_loop" is the identifier for the practise "do-while Loops",
+    which is fully stated as the following (with examples).
+
+      "Don't use do...while loops"
+  
+      # Bad
+      do { ... } while ...
+
+    Supported methods: name, description, wanted, find
+
+TO DO
+    - Decide on a method for proper error handling and implement it
+
+    - Implement more... and more... and more... practises
+
+    - Provide a way to suggest alternative code, where a solution is clear
+
+SUPPORT
+    Bugs should be reported via the CPAN bug tracker at
+
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Perl-BestPractice>
+
+    For other issues, contact the author.
+
+AUTHOR
+    Adam Kennedy <cpan@ali.as>, <http://ali.as/>
+
+SEE ALSO
+    PPI, Damian Conway's *"Perl Best Practices"* published by O'Reilly
+
+COPYRIGHT
+    Copyright 2005 Adam Kennedy. All rights reserved.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
